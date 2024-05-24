@@ -1,0 +1,12 @@
+{
+  "domain": "tuya_smartir_ac",
+  "name": "Tuya SmartIR AC",
+  "codeowners": [
+    "@suphon-t"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/suphon-t/tuya_smartir_ac",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/suphon-t/tuya_smartir_ac/issues",
+  "version": "0.0.0"
+}
