@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
+from .const import CONF_DEVICE_ID, CONF_DEVICE_KEY
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
@@ -29,10 +29,11 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         _errors = {}
         if user_input is not None:
             try:
-                await self._test_credentials(
-                    username=user_input[CONF_USERNAME],
-                    password=user_input[CONF_PASSWORD],
-                )
+                pass
+                # await self._test_credentials(
+                #     device_id=user_input[CONF_DEVICE_ID],
+                #     device_key=user_input[CONF_DEVICE_KEY],
+                # )
             except IntegrationBlueprintApiClientAuthenticationError as exception:
                 LOGGER.warning(exception)
                 _errors["base"] = "auth"
@@ -44,7 +45,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 _errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
-                    title=user_input[CONF_USERNAME],
+                    title=user_input[CONF_DEVICE_ID],
                     data=user_input,
                 )
 
@@ -53,14 +54,14 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(
-                        CONF_USERNAME,
-                        default=(user_input or {}).get(CONF_USERNAME),
+                        CONF_DEVICE_ID,
+                        default=(user_input or {}).get(CONF_DEVICE_ID),
                     ): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.TEXT
                         ),
                     ),
-                    vol.Required(CONF_PASSWORD): selector.TextSelector(
+                    vol.Required(CONF_DEVICE_KEY): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.PASSWORD
                         ),

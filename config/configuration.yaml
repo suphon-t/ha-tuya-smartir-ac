@@ -6,3 +6,9 @@ logger:
   default: info
   logs:
     custom_components.tuya_smartir_ac: debug
+
+climate:
+  - platform: tuya_smartir_ac
+    id: "gree_ac_remote"
+    remote_entity_id: "remote.fake_remote"
+    name: "Thermostat"
